@@ -1,14 +1,17 @@
-package com.example.ui.viewModel
+package com.example.ui.fragments
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android_3_lesson_1.model.Model
 
 class FirstViewModel : ViewModel() {
 
-    private var cinemaList = mutableListOf<Model>()
+    private var list: MutableLiveData<ArrayList<Model>> = MutableLiveData()
 
-    fun getListOfText(): MutableList<Model> {
-        cinemaList.clear()
+    fun getListOfText(): MutableLiveData<ArrayList<Model>> {
+
+        val cinemaList : ArrayList<Model> = ArrayList()
+
         cinemaList.add(
             Model(
                 "https://m.media-amazon.com/images/M/MV5BMzFkM2YwOTQtYzk2" + "Mi00N2VlLWE3NTItN2YwNDg1YmY0ZDNmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",
@@ -100,6 +103,7 @@ class FirstViewModel : ViewModel() {
                 "Wednesday"
             )
         )
-        return cinemaList
+        list.value = cinemaList
+        return list
     }
 }

@@ -7,16 +7,24 @@ import com.bumptech.glide.Glide
 import com.example.android_3_lesson_1.databinding.ItemBinding
 import com.example.android_3_lesson_1.model.Model
 
-class Adapter(
-    private val listCinema: MutableList<Model>, val onItemClick: (model: Model) -> Unit
-) : RecyclerView.Adapter<Adapter.FirstViewHolder>() {
+class FirstAdapter(
+    val onItemClick: (model: Model) -> Unit
+) : RecyclerView.Adapter<FirstAdapter.FirstViewHolder>() {
+
+    private var list: List<Model> = ArrayList()
+
+    fun setList(listTwo: List<Model>) {
+        this.list = listTwo
+        notifyDataSetChanged()
+
+    }
 
     inner class FirstViewHolder(private val binding: ItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
             itemView.setOnClickListener {
-                onItemClick(listCinema[adapterPosition])
+                onItemClick(list[adapterPosition])
             }
         }
 
@@ -37,8 +45,8 @@ class Adapter(
     }
 
     override fun onBindViewHolder(holder: FirstViewHolder, position: Int) {
-        holder.onBind(listCinema[position])
+        holder.onBind(list[position])
     }
 
-    override fun getItemCount(): Int = listCinema.size
+    override fun getItemCount(): Int = list.size
 }

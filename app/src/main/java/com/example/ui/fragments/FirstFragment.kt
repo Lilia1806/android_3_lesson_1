@@ -10,15 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android_3_lesson_1.databinding.FragmentFirstBinding
 import com.example.android_3_lesson_1.model.Model
-import com.example.ui.adapter.Adapter
-import com.example.ui.viewModel.FirstViewModel
+import com.example.ui.adapter.FirstAdapter
 
 class FirstFragment : Fragment() {
 
     private var viewModel: FirstViewModel? = null
     private lateinit var binding: FragmentFirstBinding
-    private val textList = mutableListOf<Model>()
-    private val adapter = Adapter(textList, this::onItemClick)
+    private val adapter = FirstAdapter(this::onItemClick)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +32,24 @@ class FirstFragment : Fragment() {
 
         initialize()
         setUpListener()
+        setupObserve()
+    }
+
+    private fun setupObserve() {
+        viewModel?.getListOfText()?.observe(viewLifecycleOwner) {
+            adapter.setList(it)
+        }
+    }
+
+    private fun setUpListener() {
+        binding.btnMain.setOnClickListener {
+            binding.btnMain.isInvisible = true
+            binding.rvMain.isInvisible = false
+        }
+    }
+
+    private fun initialize() {
+        binding.rvMain.adapter = adapter
     }
 
     private fun onItemClick(model: Model) {
@@ -45,15 +61,4 @@ class FirstFragment : Fragment() {
         )
     }
 
-    private fun setUpListener() {
-        binding.btnMain.setOnClickListener {
-            binding.btnMain.isInvisible = true
-            binding.rvMain.isInvisible = false
-        }
-    }
-
-    private fun initialize() {
-        viewModel?.let { textList.addAll(it.getListOfText()) }
-        binding.rvMain.adapter = adapter
-    }
 }
