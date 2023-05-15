@@ -1,5 +1,6 @@
 package com.example.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ class FirstAdapter(
 
     private var list: List<Model> = ArrayList()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setList(listTwo: List<Model>) {
         this.list = listTwo
         notifyDataSetChanged()

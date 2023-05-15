@@ -10,7 +10,7 @@ class FirstViewModel : ViewModel() {
 
     fun getListOfText(): MutableLiveData<ArrayList<Model>> {
 
-        val cinemaList : ArrayList<Model> = ArrayList()
+        val cinemaList: ArrayList<Model> = ArrayList()
 
         cinemaList.add(
             Model(
